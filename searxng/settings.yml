@@ -1,0 +1,36 @@
+use_default_settings: true
+
+server:
+  secret_key: "4f8a4d2e7b5c8e9f3a6d1b8e5c2f9a7d3e6b1c4f7a9d2e5b8c1f4a7d0e3b6c9f2a5d8e1b4c7f0a3d6b9c2e5f8a1d4b7e0c3f6a9d2e5b8c1f4a7d0e3b6c9f"
+  limiter: false
+  image_proxy: true
+  method: "GET"
+
+search:
+  safe_search: 0
+  autocomplete: "duckduckgo"
+  formats:
+    - html
+    - json
+
+general:
+  instance_name: 'Personal SearXNG'
+  debug: false
+
+ui:
+  static_use_hash: true
+
+redis:
+  url: redis://redis:6379/0
+
+engines:
+  - name: google
+    disabled: false
+  - name: bing
+    disabled: false
+  - name: duckduckgo
+    disabled: false
+  - name: startpage
+    disabled: false
+  - name: yahoo
+    disabled: false 

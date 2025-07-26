@@ -1,13 +1,12 @@
 version: '3.8'
 
 services:
-  # Redis for SearXNG caching
   redis:
-    container_name: search-engine-redis
+    container_name: searxng_redis
     image: "redis:7-alpine"
     command: redis-server --save "" --appendonly "no"
     networks:
-      - search-engine-network
+      - searxng
     tmpfs:
       - /var/lib/redis
     cap_drop:
@@ -16,30 +15,18 @@ services:
       - SETGID
       - SETUID
       - DAC_OVERRIDE
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
 
-  # SearXNG metasearch engine
   searxng:
-    container_name: search-engine-searxng
-    build:
-      context: ./backend/searxng
-      dockerfile: Dockerfile
-    dns:
-      - 8.8.8.8
+    container_name: searxng
+    image: searxng/searxng:latest
     networks:
-      - search-engine-network
+      - searxng
     ports:
-      - "${SEARXNG_PORT:-8080}:8080"
+      - "8888:8080"
     volumes:
-      - searxng-data:/var/cache/searxng
+      - ./searxng:/etc/searxng:rw
     environment:
-      - SEARXNG_BASE_URL=http://${SEARXNG_HOSTNAME:-localhost}:${SEARXNG_PORT:-8080}/
-      - SEARXNG_SETTINGS_PATH=/etc/searxng/settings.yml
+      - SEARXNG_BASE_URL=http://localhost:8888/
     cap_drop:
       - ALL
     cap_add:
@@ -48,66 +35,8 @@ services:
       - SETUID
       - DAC_OVERRIDE
     depends_on:
-      redis:
-        condition: service_healthy
-    restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "1m"
-        max-file: "3"
-
-  # Frontend React application
-  frontend:
-    container_name: search-engine-frontend
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      target: production
-    networks:
-      - search-engine-network
-    ports:
-      - "${FRONTEND_PORT:-3000}:80"
-    environment:
-      - VITE_API_URL=http://${SEARXNG_HOSTNAME:-localhost}:${SEARXNG_PORT:-8080}
-      - VITE_OPENAI_ENABLED=${VITE_OPENAI_ENABLED:-true}
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
-
-  # OpenAI service (Python)
-  openai-service:
-    container_name: search-engine-ai
-    build:
-      context: ./services/openai
-      dockerfile: Dockerfile
-    networks:
-      - search-engine-network
-    ports:
-      - "8001:8001"
-    environment:
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - HOST=0.0.0.0
-      - PORT=8001
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
-    profiles:
-      - with-ai  # Only start when AI profile is enabled
+      - redis
 
 networks:
-  search-engine-network:
-    driver: bridge
-    name: search-engine-net
-
-volumes:
-  searxng-data:
-    driver: local 
+  searxng:
+    driver: bridge 
