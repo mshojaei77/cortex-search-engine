@@ -10,7 +10,7 @@ import logging
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
-load_dotenv()
+load_dotenv(encoding='utf-8-sig')
 
 # Set up a default logger
 logging.basicConfig(
