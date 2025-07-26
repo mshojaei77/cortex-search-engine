@@ -10,27 +10,51 @@ Building specialized AI agents for different purposes? That's exactly what this 
 
 ---
 
-## Background & Rationale
+## Why This Project? The Best of Both Worlds
 
-Here's the deal: I'm merging two powerful concepts—a private search proxy and a large language model. The result? A local, conversational search agent that cuts through SEO garbage and ad-trackers. It lives in your terminal, where real work happens.
+Standard web search is broken. You're fighting SEO garbage, ad-trackers, and outdated answers. This project fixes that by combining the privacy of a meta-search engine with the intelligence of a large language model. You get the best of both worlds.
 
-Standard web search is broken for developers. The signal-to-noise ratio is plummeting. You're fighting blog spam, outdated answers, and content farms. My goals are simple: privacy (no query logging) and efficiency (synthesized answers, not endless link lists).
+### The AI Advantage: Intelligent, Context-Aware Answers
 
-This setup aggregates results from multiple engines via self-hosted SearXNG, then feeds clean data to OpenAI for smart synthesis. You get direct answers, CLI-style, without leaving your command line or dodging sponsored junk.
+This project leverages Large Language Models to transform a messy list of links into a coherent, synthesized answer. Here’s what that AI-driven approach provides:
 
-It's not a new search engine - it's a better client for the web we already have.
+1.  **Conversational & Context-Aware**: Ask natural follow-up questions. The AI understands the dialogue’s context, refining results with each turn.
+2.  **Deep Personalization**: The system learns to adapt to your intent, location, and past behavior, surfacing what truly matters and hiding the noise.
+3.  **Higher Relevance with Semantic NLP**: The model understands synonyms, entities, and relationships, so fewer irrelevant links slip through.
+4.  **Multimodal Answers**: Text, images, and video are blended into a single, rich panel for more comprehensive discovery.
+5.  **Voice-First Accessibility**: Built-in speech recognition and synthesis support hands-free search for drivers, children, or visually impaired users.
+6.  **Instant AI Overviews**: Generative snippets summarize multiple pages, saving you time and clicks.
+7.  **Proactive Exploration Paths**: The system suggests long-tail topics and new angles you might never have thought to query.
+8.  **Faster Time-to-Answer**: By combining semantic retrieval with summarization, the system often returns the exact fact you need in a single step—ideal for mobile or voice queries.
+9.  **Continuous Learning**: The model is continuously fine-tuned, allowing it to quickly absorb new jargon, events, and documents.
+10. **Intent-Driven Discovery**: For commercial queries, the system can link products directly to user needs, improving the discovery process.
+
+### The Privacy Advantage: Anonymous, Uncensored, & Open Source
+
+This project is built on SearXNG, a battle-tested, open-source metasearch engine that puts your privacy first.
+
+1.  **Strict Privacy**: No tracking, cookies, or profiling. Queries are stateless and stay on your server.
+2.  **Meta-Search Breadth**: Aggregates results from ~230 search engines for broader, more comprehensive coverage.
+3.  **Total Control**: You can enable or disable specific engines, categories, languages, and time ranges to tune relevance.
+4.  **Open Source & Transparent**: The AGPL-3.0 code, issues, and changelog are on GitHub for anyone to audit or improve.
+5.  **Self-Host in Minutes**: Official Docker images make it easy to run on a VPS, home lab, or even a Raspberry Pi.
+6.  **Lightweight & Fast**: Modest CPU/RAM needs and built-in caching keep it speedy, even on small hardware.
+7.  **Advanced Anonymity**: Natively supports Tor routing, HTTP/SOCKS proxies, and result proxying to hide your IP from upstream sites.
+8.  **API-Friendly**: Clean JSON endpoints integrate seamlessly with chatbots, research pipelines, and LangChain tools.
+9.  **Vibrant Community**: With over 20k stars and thousands of commits, the project is actively maintained with quick bug fixes and new features.
+10. **Granular Filtering & UI Tweaks**: Comes with SafeSearch, dark themes, keyboard shortcuts, and category tabs to make daily use pleasant and efficient.
 
 ---
 
 ## See It in Action
 
-Picture this: You're in your terminal, the cursor blinking patiently. Your coffee's gone cold, but you're in the zone. You fire up the app, ask a question, and boom - this is what you get. (This is a real example, but web results can be a fickle beast).
+This is what you get—real answers, no tracking, all from your own terminal.
 
 ```md
-Web Search Assistant (type 'exit' to quit)
+
 > What are the latest developments in nuclear fusion energy as of late 2025?
 
-Assistant: As of late 2025, here are some notable developments in nuclear fusion energy:
+As of late 2025, here are some notable developments in nuclear fusion energy:
 
 1. **Commercial Fusion Plant Advances**: Google has entered into an investment and offtake agreement with Commonwealth Fusion Systems for 200 MW of power from its first ARC commercial fusion plant. This represents a significant step towards commercialization of fusion energy.
 
@@ -39,559 +63,112 @@ Assistant: As of late 2025, here are some notable developments in nuclear fusion
 For more detailed information, you may refer to the articles [here](https://www.world-nuclear-news.org/articles/google-backs-fusion-power) and [here](https://www.scientificamerican.com/article/record-breaking-results-bring-fusion-power-closer-to-reality/).
 
 These developments reflect a growing momentum in the field of nuclear fusion, with significant investments and technological advancements that may lead to practical applications in the near future.
-
-> intresting tell me more about the Google investment
-
-Assistant: Recently, Google (Alphabet Inc.) has made a significant investment in the artificial intelligence startup Anthropic, agreeing to invest up to $2 billion. This move intensifies competition in the AI sector, where both Google and Anthropic are vying for leadership. 
-
-- **Details of the Investment**: On October 31, 2023, it was reported that Google had initiated a $500 million upfront investment in Anthropic, with plans to commit further funding later. This agreement underscores Google's commitment to advancing its own AI capabilities, particularly as it seeks to compete with other major players like OpenAI.
-
-- **Background on Anthropic**: Anthropic is known for its development of AI systems and has positioned itself as a serious contender in the AI landscape, competing directly with OpenAI. Google’s investment is likely aimed at enhancing its own AI technologies and expanding its influence in the evolving market.
-
-This partnership indicates a strategic shift in how tech giants are prioritizing AI development and the race to dominate the next generation of AI technologies. 
-
-For more details, you can read the articles [here](https://www.forbes.com/sites/qai/2023/10/31/google-invests-in-anthropic-for-2-billion-as-ai-race-heats-up/) or [here](https://www.reuters.com/technology/google-agrees-invest-up-2-bln-openai-rival-anthropic-wsj-2023-10-27/).
 ```
-
-That's it! Real answers, no tracking, all from your own setup. Want to try it yourself?
 
 ---
 
-## Quick Start: The 60-Second Install
+## Quick Start Guide
 
-> **TL;DR:** Got Docker, Python 3.8+, and an OpenAI key? You're ready. This clones, configures, and launches in minutes.
+> **Prerequisites:** Docker, Python 3.8+, and an OpenAI API Key.
 
 ```bash
 # 1. Clone the repository
 git clone https://github.com/your-username/personal-search-engine.git
 cd personal-search-engine
 
-# 2. Configure your API key securely (add .env to .gitignore!)
+# 2. Configure your API key
 echo "OPENAI_API_KEY=sk-YOUR_API_KEY_HERE" > .env
 
 # 3. Setup and run
 python setup.py && python main.py
 ```
 
-**Running into issues?** Run this health check:
-```bash
-python validate_setup.py
-```
-
-*Still having trouble? Check the detailed troubleshooting below.*
+**Need more help?** For detailed instructions, troubleshooting, and configuration options, check out the [**Developer Guide**](./DEVELOPER_GUIDE.md).
 
 ---
 
-## Why Build This? Features That Actually Matter
+## How It Works
 
-Why go DIY? Simple. You get privacy and intelligence without the usual compromises.
-
-- 🕵️‍♂️ **True Privacy**: Your queries stay local. No more fueling the ad-tech machine with your late-night debugging sessions.
-- 🤖 **AI That Understands Context**: It synthesizes answers, not just link dumps. Think of it as a smart research assistant that's always on call.
-- 💬 **Terminal-Native**: A pure CLI workflow for developers who live in the command line.
-- 🐳 **Docker-Powered**: Containers handle all the messy setup. Just run and go.
-- 🐍 **Python-Based**: The code is clean, modular, and easy to hack on. Go ahead, make it your own.
-- ⚙️ **Fully Customizable**: Tweak search engines, AI models, and behaviors through simple config files.
-
-Bonus: you're building an ethical, surveillance-free alternative to mainstream search. How cool is that?
-
----
-
-## How It Works: Under the Hood
-
-No black boxes here. The architecture is straightforward and easy to debug. SearXNG aggregates search results anonymously, and then OpenAI synthesizes them into a coherent answer.
+No black boxes here. The architecture is straightforward: your terminal talks to a local Python app, which uses a local SearXNG instance (running in Docker) to fetch private search results. Those results are then synthesized by an AI model to give you a clean, coherent answer.
 
 ```mermaid
 graph TD
-    User[👨‍💻 You, the Terminal Wizard] --> PythonApp[🐍 The App (main.py)]
+    User["👨‍💻 You, the Terminal Wizard"] --> PythonApp["🐍 The App (main.py)"]
     subgraph "Your Python Realm"
-        PythonApp -- "Hey, what's up with...?" --> OpenAI_Agent[🤖 OpenAI Agent]
-        OpenAI_Agent -- "Hmm, need fresh web intel" --> SearchManager[🔍 SearchEngineManager]
-        SearchManager -- "Query time!" --> SearXNG_Client[🔌 SearXNGClient]
+        PythonApp -- "Query" --> SearchManager["🔍 SearchEngineManager"]
+        SearchManager -- "Fetch Results" --> SearXNG_Client["🔌 SearXNGClient"]
     end
-    SearXNG_Client -- "HTTP magic" --> SearXNG_Service[🐳 SearXNG Docker Container]
-    subgraph "Docker Land (docker-compose.yml)"
-        SearXNG_Service -- "Cache me if you can" --> Redis_Service[📦 Redis Cache]
-    end
-    SearXNG_Service -- "Fetching from the wild web" --> Internet[🌐 Real Search Engines (Google, Bing, etc.)]
+    SearXNG_Client -- "HTTP Request" --> SearXNG_Service["🐳 SearXNG Docker Container"]
+    SearXNG_Service -- "Aggregate & Cache" --> Internet["🌐 Real Search Engines"]
     Internet -- "Raw results" --> SearXNG_Service
     SearXNG_Service -- "Clean JSON" --> SearXNG_Client
-    SearXNG_Client -- "Parsed goodies" --> SearchManager
-    SearchManager -- "Refined info" --> OpenAI_Agent
-    OpenAI_Agent -- "Brainstorm with OpenAI API" --> OpenAI_API[☁️ OpenAI Cloud]
-    OpenAI_API -- "Wit and wisdom" --> OpenAI_Agent
-    OpenAI_Agent -- "Here's the deets" --> PythonApp
-    PythonApp -- "Terminal output" --> User
-```
-
-Here's the step-by-step flow:
-1. It all starts with your question in the CLI.
-2. The AI agent figures out if it needs to hit the web for fresh info.
-3. If so, the search manager queries your local SearXNG instance.
-4. SearXNG does the heavy lifting: aggregates results from multiple engines and caches them in Redis.
-5. Clean results are fed back to the AI agent, which uses OpenAI to cook up a synthesized answer.
-
-The modular design makes it easy to swap AI models or add new tools.
-
----
-
-## Installation: The Complete Setup Guide
-
-### Prerequisites Check
-
-Before you start, make sure you have these three things:
-
-- **Docker Desktop**: Download from [docker.com](https://www.docker.com/products/docker-desktop/). Launch it after installation.
-- **Python 3.8+**: Check your version with `python --version` or `python3 --version`
-- **OpenAI API Key**: Grab one from [platform.openai.com](https://platform.openai.com/signup)
-
-Run these quick verification commands:
-```bash
-# Verify Docker is running
-docker --version
-docker info  # Should show system info, not errors
-
-# Verify Python version
-python --version  # Should show 3.8 or higher
-```
-
-### Step-by-Step Setup
-
-#### 1. Clone and Navigate
-
-```bash
-git clone https://github.com/your-username/personal-search-engine.git
-cd personal-search-engine
-```
-
-#### 2. Set Up Your Environment
-
-**Create a virtual environment (highly recommended):**
-```bash
-# Create virtual environment
-python -m venv .venv
-
-# Activate it
-# On Windows:
-.venv\Scripts\activate
-# On macOS/Linux:
-source .venv/bin/activate
-
-# You should see (.venv) in your terminal prompt
-```
-
-**Configure your OpenAI API key:**
-```bash
-# Create .env file with your API key
-echo "OPENAI_API_KEY=sk-your-actual-key-here" > .env
-
-# Verify the file was created
-cat .env  # Should display your key
-```
-
-#### 3. Run the Automated Setup Script
-
-This script handles all the heavy lifting for you:
-
-```bash
-python setup.py
-```
-
-**What happens behind the scenes:**
-- ✅ Verifies Docker is running
-- 📦 Installs Python dependencies (uses `uv` for faster installation)
-- 🐳 Pulls and starts Docker containers (SearXNG + Redis)
-- ⏳ Waits for services to become ready
-- 🧪 Tests the search functionality
-- ✅ Confirms everything works properly
-
-**Expected output:**
-```bash
-🔍 Personal Search Engine Setup
-===============================
-
-🐳 Checking Docker installation...
-✅ Docker is ready
-
-🐍 Setting up Python environment...
-📦 Using UV for package management...
-✅ Installing dependencies with UV completed successfully
-
-🚀 Starting SearXNG with Docker Compose...
-✅ SearXNG services started successfully
-
-⏳ Waiting for SearXNG to be ready...
-✅ SearXNG is ready!
-
-🧪 Testing search functionality...
-✅ Search test successful! Found 3 results
-
-🎉 Setup completed successfully!
-
-📋 Next steps:
-   • Web interface: http://localhost:8888
-   • Run the main assistant: python main.py
-   • Run example script: python example.py
-   • View logs: docker-compose logs -f
-   • Stop services: docker-compose down
-
-💡 The search engine is now ready to use!
-✅ OpenAI API key detected
-
-📊 Service Status:
-       Name                     Command               State           Ports
-searxng_redis     docker-entrypoint.sh redis ...   Up      6379/tcp
-searxng           /sbin/tini -- /usr/local/s ...   Up      0.0.0.0:8888->8080/tcp
-```
-
-### 4. Validate Everything Works
-
-Before diving in, run a quick health check:
-
-```bash
-python validate_setup.py
-```
-
-This checks all components and gives you a score. You should see:
-```bash
-🔍 Personal Search Engine - Setup Validation
-==================================================
-
-🔧 Checking Python Version...
-✅ Python 3.12.6 - Good!
-
-🔧 Checking Environment File...
-✅ .env file with OpenAI key found
-
-🔧 Checking Python Dependencies...
-✅ All Python dependencies installed
-
-🔧 Checking Docker Containers...
-✅ Docker containers running
-
-🔧 Checking SearXNG Service...
-✅ SearXNG responding on http://localhost:8888
-
-🔧 Checking OpenAI API Key...
-✅ OpenAI API key working
-
-==================================================
-📊 VALIDATION SUMMARY
-==================================================
-✅ PASS Python Version
-✅ PASS Environment File
-✅ PASS Python Dependencies
-✅ PASS Docker Containers
-✅ PASS SearXNG Service
-✅ PASS OpenAI API Key
-
-Score: 6/6 checks passed
-
-🎉 ALL CHECKS PASSED!
-Your setup is ready. Run: python main.py
-```
-
-### 5. Fire It Up!
-
-```bash
-python main.py
-```
-
-You should see:
-```bash
-Web Search Assistant (type 'exit' to quit)
-> 
-```
-
-Type a question and watch the magic happen!
-
----
-
-## Usage Examples
-
-### Basic Chat Mode
-
-```bash
-$ python main.py
-> What's the difference between async and await in Python?
-Assistant: [Detailed explanation with web sources]
-
-> How do I fix Docker container permission errors?
-Assistant: [Practical solutions with commands]
-
-> exit
-Exiting...
-```
-
-### Library Usage
-
-```python
-from search_engine import SearchEngineManager, display_results
-
-# Quick search
-manager = SearchEngineManager()
-results = manager.quick_search("python tips 2024", max_results=5)
-display_results(results, title="Python Tips")
-
-# Advanced usage
-with manager.create_client() as client:
-    response = client.search(
-        query="rust vs go performance",
-        engines=["google", "bing"],
-        categories=["general"]
-    )
-    print(f"Found {len(response.results)} results")
-```
-
-### Test Your Setup
-
-```bash
-# Quick validation (recommended first step)
-python validate_setup.py
-
-# Run the example script
-python example.py
-
-# Check web interface
-# Open browser to http://localhost:8888
-
-# Check service status
-docker-compose ps
+    SearXNG_Client -- "Parsed Results" --> SearchManager
+    SearchManager -- "Synthesize" --> OpenAI_API["☁️ OpenAI Cloud"]
+    OpenAI_API -- "Answer" --> PythonApp
+    PythonApp -- "Terminal Output" --> User
 ```
 
 ---
 
-## Troubleshooting Common Issues
+## Comparison: This Project vs. The Alternatives
 
-### Setup Problems
+How does this project stack up against other search APIs and services? Here’s a high-level comparison as of 2025.
 
-**"Docker daemon not running"**
-```bash
-# Solution: Start Docker Desktop
-# Windows/Mac: Launch Docker Desktop application
-# Linux: sudo systemctl start docker
-```
+| Service               | Privacy Model                                       | Cost / Pricing                                   | Data Control                                 | Self-Hosting        | Key Feature                             | Main Drawback                                   |
+| :-------------------- | :-------------------------------------------------- | :----------------------------------------------- | :------------------------------------------- | :------------------ | :-------------------------------------- | :---------------------------------------------- |
+| **This Project**      | ✅ **Ultimate** (Local-first, no tracking, proxied) | ✅ **Minimal** (Only your LLM API costs)         | ✅ **Complete Ownership** (All data stays with you) | ✅ **Yes, by Design** | AI Synthesis + Meta-Search Privacy      | Requires initial setup                          |
+| **Google Search API** | ❌ **Minimal** (Tied to Google's data ecosystem)    | ❌ **Expensive** ($5/1k queries after free tier) | ❌ **None** (Your data is their product)     | ❌ **No**           | World's largest index                   | Aggressive rate limits, strict ToS              |
+| **Brave Search API**  | ✅ **Good** (Privacy-focused index)                 | ⚠️ **Metered** ($5-9/1k queries after free tier)  | ⚠️ **Limited** (Storage rights cost extra)   | ❌ **No**           | Privacy-respecting API                  | Smaller index, licensing concerns               |
+| **DuckDuckGo**        | ✅ **Very Good** (No user tracking, but referrer leaks) | ✅ **Free** (Ad-supported)                       | ✅ **Excellent** (No data to control)        | ❌ **No**           | Simple, private search                  | Weaker results, no AI features                  |
+| **Perplexity API**    | ⚠️ **Opaque** (Relies on third-party infra)         | ⚠️ **Metered** (Pay-per-API call)                | ❌ **Minimal** (Processed on their servers)  | ❌ **No**           | Conversational answers w/ citations     | Factual accuracy issues, copyright disputes     |
+| **Exa API**           | ⚠️ **Opaque** (Third-party service)                | ⚠️ **Metered** (Tiered plans)                    | ⚠️ **Limited** (API-level data access)       | ❌ **No**           | Semantic search for AI (RAG)            | Resource-hungry, integration learning curve   |
+| **SerpAPI**           | ⚠️ **Proxy-based** (Scrapes results via proxies)   | ❌ **Expensive** (Pay-per-search, costly at scale) | ⚠️ **Limited** (Templated SERP data)         | ❌ **No**           | Easy SERP scraping                      | Throughput throttles, bot risk                  |
 
-**"Port 8888 already in use"**
-```bash
-# Check what's using the port
-lsof -i :8888  # macOS/Linux
-netstat -ano | findstr :8888  # Windows
+**How to Choose?**
 
-# Solution: Change the port in docker-compose.yml
-# Edit "8888:8080" to "8889:8080", then restart:
-docker-compose down && docker-compose up -d
-```
+If privacy is paramount, **DuckDuckGo** or **Brave Search** are superior to Google. For programmatic access, **Brave’s API** is cheaper than Google’s but is still maturing. **SerpAPI** is plug-and-play but can be costly at scale. **Exa** shines for RAG experiments but requires more setup. **Perplexity** is fast for exploratory Q&A, but its output requires rigorous fact-checking.
 
-**"OpenAI API key not found"**
-```bash
-# Check if .env file exists and has the correct format
-cat .env
-# Should display: OPENAI_API_KEY=sk-...
-
-# If missing or incorrectly formatted:
-echo "OPENAI_API_KEY=sk-your-key-here" > .env
-```
-
-**"Python dependencies failed to install"**
-```bash
-# Try installing without uv
-pip install -r requirements.txt
-
-# Or upgrade pip first
-python -m pip install --upgrade pip
-```
-
-### Runtime Issues
-
-**"Search test failed"**
-
-I've been there. You see the error and your heart sinks a little. Don't worry, it's usually an easy fix.
-```bash
-# Check container logs for errors
-docker-compose logs searxng
-docker-compose logs redis
-
-# Restart the containers
-docker-compose restart
-
-# Complete reset if needed
-docker-compose down
-docker-compose up -d
-```
-
-**"Assistant not responding"**
-```bash
-# Verify OpenAI API key is working
-python test_openai.py
-
-# Test network connectivity to SearXNG. Is it reachable?
-curl -s http://localhost:8888/config
-```
-
-**"Permission denied errors"**
-```bash
-# On Linux/Mac, fix file permissions
-sudo chown -R $USER:$USER .
-```
-
-### Performance Issues
-
-**"Slow responses"**
-- Switch to `gpt-4o-mini` instead of `gpt-4` for faster, cheaper responses
-- Check your internet connection speed
-- Monitor OpenAI usage at platform.openai.com
-
-**"High API costs"**
-- Use the `gpt-4o-mini` model (significantly cheaper)
-- Reduce `max_results` in search configurations
-- Track usage in your OpenAI dashboard
+**This project offers a unique alternative:** get the privacy of SearXNG and the power of modern AI without the high costs, data leakage, or usage restrictions of commercial APIs.
 
 ---
 
-## Configuration & Customization
+## The Vision: What's Next?
 
-### Environment Variables
+This project is just the beginning. The goal is to evolve from a simple search assistant into a powerful, proactive research agent. Here are some of the features on the roadmap:
 
-Create `.env.example` for reference:
-```bash
-# Required
-OPENAI_API_KEY=sk-your-key-here
 
-# Optional (with defaults)
-SEARXNG_URL=http://localhost:8888
-SEARXNG_TIMEOUT=30
-MAX_SEARCH_RESULTS=10
-```
+- [ ] **Agentic & Multi-Tool Workflows**: Evolve from a search assistant into a true agent. Grant it the ability to use other tools (like a calculator, code interpreter, or even call other APIs) and autonomously decide which tool to use for a given query.
+- [ ] **Personalized Research Profiles**: Allow users to create distinct profiles for different research topics (e.g., "AI Developments," "Market Analysis") that prime the agent with specific contexts, preferred sources, and output formats.
+- [ ] **Fully Local & Private AI**: Add first-class support for local LLMs via Ollama, enabling a 100% private, offline-capable version of the search engine.
+- [ ] **Deep Research Agent Mode**: Create a mode where the agent can be given a topic to research autonomously. It would periodically search for new information, synthesize findings, and present a summary, acting as a personal intelligence briefing.
+- [ ] **Multi-Modal Search**: Extend capabilities to understand and synthesize information from images, videos, and academic papers (PDFs).
+- [ ] **Structured Data Extraction & Analysis**: Automatically extract and analyze structured data from web pages, such as tables or financial reports, and allow for direct querying and visualization.
+- [ ] **Source Reliability**: Implement a system to automatically assess the reliability and potential bias of sources, providing users with a credibility score or warnings.
+- [ ] **Automated Report Generation**: Create comprehensive reports in various formats (e.g., Markdown, PDF, Jupyter Notebooks) complete with citations, summaries, and visualizations.
+- [ ] **Trend Analysis & Forecasting**: Monitor topics over time to identify emerging trends, predict future developments, and alert the user to significant changes or new publications.
+- [ ] **Argument Mapping**: Deconstruct arguments from sources to identify premises, conclusions, and potential logical fallacies, presenting them in a structured, easy-to-understand format.
+- [ ] **Seamless Note-Taking Integration**: Add one-click exporting of findings, summaries, and sources to popular note-taking applications like Obsidian, Logseq, and Notion.
+- [ ] **Iterative, Multi-Stage Retrieval**: Implement a system that runs successive, automatically refined searches (keyword → semantic → citation-chaining) to surface high-quality primary sources instead of relying on one-shot queries.
+- [ ] **Citation Extraction & Normalization**: Automatically pull canonical identifiers (DOI, arXiv ID, PMID, ISBN) and format them consistently for quick export to reference managers.
+- [ ] **Cross-Disciplinary Knowledge Graph**: Connect concepts across different fields to suggest unexpected but relevant literature "bridges" that traditional search engines might miss.
+- [ ] **Explainable Summarization**: Produce layered summaries (abstract, deep dive, bullet-point takeaways) with inline citations so users can decide what to read next based on their needs.
+- [ ] **Interactive Query Refinement**: Offer smart prompts and visual sliders (date range, study type, source type) to let users steer their research without writing complex search strings.
+- [ ] **Progress Tracking & Transparency**: Display a real-time sidebar showing every step of the research process as it happens, allowing users to track progress and understand the agent's reasoning.
+- [ ] **Research Canvas & Audio Export**: Add one-click functionality to transform written research reports into interactive visual canvases or narrated audio summaries for different consumption styles.
+- [ ] **Auto-Generated Data Visualizations**: Create interactive dashboards and charts from the researched data to help users quickly grasp trends, comparisons, and key metrics.
+- [ ] **Self-Reflection Capabilities**: Implement an explicit self-reflection step where the agent evaluates if it has sufficient evidence before drafting conclusions, improving result quality.
+- [ ] **Think vs. Instant Modes**: Add toggleable processing modes to let users choose between deeper, more thorough research (with longer wait times) or faster, more immediate results.
 
-### SearXNG Configuration
-
-Edit `searxng/settings.yml` to:
-- Add/remove search engines
-- Change result limits
-- Modify timeout settings
-- Customize appearance
-
-### Docker Configuration
-
-Edit `docker-compose.yml` to:
-- Change ports (if 8888 conflicts)
-- Adjust memory limits
-- Add volume mounts
-- Configure networking
-
----
-
-## Performance & Costs
-
-**Typical Response Times:**
-- Search aggregation: 1-3 seconds
-- AI synthesis: 2-5 seconds
-- End-to-end: 3-8 seconds per query
-
-**OpenAI API Costs (2024 pricing):**
-- `gpt-4o-mini`: ~$0.0008 per query
-- `gpt-4-turbo`: ~$0.003 per query
-- Mini model delivers 1000+ queries per dollar
-
-**System Resource Usage:**
-- RAM: ~200MB (Docker containers + Python app)
-- Storage: ~500MB (Docker images)
-- CPU: Minimal when idle, brief spikes during queries
-
----
-
-## Advanced Usage
-
-### Custom Tools
-
-Extend the agent with new capabilities:
-
-```python
-# Add to main.py
-def calculator_tool(expression: str) -> float:
-    """Simple calculator tool."""
-    return eval(expression)  # Don't do this in production!
-
-# Register with OpenAI function calling
-```
-
-### Alternative Models
-
-Swap OpenAI for local models:
-
-```python
-# Use Ollama for local inference
-from ollama import Client
-client = Client(host='http://localhost:11434')
-```
-
-### Batch Processing
-
-Process multiple queries:
-
-```python
-queries = ["question 1", "question 2", "question 3"]
-for query in queries:
-    result = run_agent(query)
-    print(f"Q: {query}\nA: {result}\n")
-```
+Have ideas or suggestions? Open an issue or start a discussion!
 
 ---
 
 ## Contributing
 
-Found a bug or want to add a feature? Let's build this together!
-
-1. **Fork** the repository
-2. **Create** a feature branch: `git checkout -b feat/awesome-feature`
-3. **Write** your code
-4. **Test** everything with `python setup.py`
-5. **Commit** using conventional format: `git commit -m "feat: add awesome feature"`
-6. **Push** and create a pull request
-
-**Development environment setup:**
-```bash
-# Install development dependencies
-pip install pytest black isort mypy
-
-# Run tests
-pytest
-
-# Format code
-black .
-isort .
-
-# Type checking
-mypy .
-```
+Found a bug or want to add a feature? We'd love your help! Please see the [**Developer Guide**](./DEVELOPER_GUIDE.md) for details on how to contribute.
 
 ---
 
 ## License
 
-MIT License - use, modify, and share freely. See `LICENSE` for complete details.
-
-Built with ❤️ by developers, for developers. If this project saves you time or brings you joy, consider dropping a ⭐ on the repository!
-
----
-
-## Sources & References
-
-- **SearXNG**: [searxng.github.io](https://searxng.github.io) - Privacy-focused meta-search engine
-- **OpenAI**: [platform.openai.com](https://platform.openai.com/) - AI API platform  
-- **Docker**: [docker.com](https://docker.com) - Containerization platform
-- **Python**: [python.org](https://python.org) - Programming language
-
----
-
-## What's Next?
-
-- [ ] **Streaming responses** for real-time conversation feel
-- [ ] **Conversation memory** for intelligent follow-up questions  
-- [ ] **Web interface** for users who prefer browsers over terminals
-- [ ] **Local model support** (Ollama, LM Studio, etc.)
-- [ ] **Plugin system** for custom search tools and integrations
-- [ ] **Multi-language support** for global accessibility
-
-Have ideas or suggestions? Open an issue or start a discussion! 
+MIT License - use, modify, and share freely. If this project saves you time or brings you joy, consider dropping a ⭐ on the repository! 
