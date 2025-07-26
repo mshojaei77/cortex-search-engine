@@ -11,6 +11,7 @@ import subprocess
 import time
 import requests
 from pathlib import Path
+from dotenv import load_dotenv
 
 
 def run_command(command, description, check=True):
@@ -59,12 +60,14 @@ def setup_environment():
     # Check if uv is available
     uv_available = run_command("uv --version", "Checking UV package manager", check=False)
     
-    if uv_available:
-        print("📦 Using UV for package management...")
-        success = run_command("uv pip install -r requirements.txt", "Installing dependencies with UV")
-    else:
-        print("📦 UV not found, using pip...")
-        success = run_command("pip install -r requirements.txt", "Installing dependencies with pip")
+    if not uv_available:
+        print("📦 UV not found, installing it via pip...")
+        if not run_command("pip install uv", "Installing UV"):
+            print("❌ Failed to install UV. Please install it manually: pip install uv")
+            return False
+    
+    print("📦 Using UV for package management...")
+    success = run_command("uv pip install -r requirements.txt", "Installing dependencies with UV")
     
     return success
 
@@ -189,7 +192,8 @@ def main():
         print("\n🎉 Setup completed successfully!")
         print("\n📋 Next steps:")
         print("   • Web interface: http://localhost:8888")
-        print("   • Run search script: python search_engine.py")
+        print("   • Run the main assistant: python main.py")
+        print("   • Run example script: python example.py")
         print("   • View logs: docker-compose logs -f")
         print("   • Stop services: docker-compose down")
         print("\n💡 The search engine is now ready to use!")
@@ -197,6 +201,14 @@ def main():
         print("\n⚠️  Setup completed but search test failed")
         print("   Please check the logs and configuration")
     
+    # Check for OpenAI key
+    load_dotenv()
+    if not os.getenv("OPENAI_API_KEY"):
+        print("\n⚠️  OPENAI_API_KEY not found in .env file")
+        print("   Please add it: echo 'OPENAI_API_KEY=your-key-here' >> .env")
+    else:
+        print("✅ OpenAI API key detected")
+
     print()
     show_status()
 
